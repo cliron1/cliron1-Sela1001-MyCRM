@@ -18,7 +18,27 @@ namespace MyCRM.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MyCRM.Data.Models.Cust", b =>
+            modelBuilder.Entity("MyCRM.Entiities.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CustId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustId");
+
+                    b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("MyCRM.Entiities.Cust", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,6 +54,15 @@ namespace MyCRM.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Custs");
+                });
+
+            modelBuilder.Entity("MyCRM.Entiities.Contact", b =>
+                {
+                    b.HasOne("MyCRM.Entiities.Cust", "Cust")
+                        .WithMany()
+                        .HasForeignKey("CustId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
