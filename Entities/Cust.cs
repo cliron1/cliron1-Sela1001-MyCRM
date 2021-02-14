@@ -15,7 +15,7 @@ namespace MyCRM.Entiities
 
 	public enum CustTypes
 	{
-		Company = 0,
-		Private = 1
+		Company = 1,
+		Private = 2
 	}
 }
